@@ -1,0 +1,102 @@
+#menu {
+background-color: var(--background);
+overflow: hidden;
+    border-bottom: 1px solid var(--background-active);
+}
+
+#menu .name{
+    font-size: 17px;
+    line-height: 38px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    margin-right: 20px;
+    padding-left: 15px;
+    border-left: 1px solid var(--background-active);
+}
+
+#menu a {
+float: left;
+display: block;
+color: var(--backgroun-text);
+text-align: center;
+padding: 10px 18px;
+text-decoration: none;
+font-size: 16px;
+    cursor: pointer;
+}
+
+#menu .dropdown {
+float: left;
+overflow: hidden;
+}
+
+#menu .dropdown .dropbtn, #menu .menu-icon, #menu .btn{
+position: relative;
+font-size: 16px;
+border: none;
+color: var(--background-text);
+padding: 10px 18px;
+background-color: inherit;
+font-family: inherit;
+    cursor: pointer;
+}
+
+#menu .dropdown .dropbtn{
+  padding: 10px 18px;
+    text-aling: left;
+}
+
+#menu .dropdown .dropbtn  .downarrow{
+position: absolute;
+width: 0; 
+height: 0; 
+border-left: 5px solid transparent;
+border-right: 5px solid transparent;
+border-top: 5px solid;
+right: 0;
+top: 0;
+margin: 13px 8px 0px 0px;
+}
+
+#menu a:focus, #menu .dropdown .dropbtn:focus, #menu .menu-icon:focus{
+outline-color: var(--primary);
+}
+
+#menu .dropdown-content {
+display: none;
+position: absolute;
+background-color: var(--background);
+min-width: 160px;
+box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 32%);
+z-index: 1;
+}
+
+#menu .dropdown-content a,  #menu .btn {
+float: none;
+color: black;
+text-decoration: none;
+display: block;
+text-align: left;
+width: 100%;
+}
+
+#menu a:hover, #menu .btn:hover, #menu .menu-icon:hover, #menu .dropdown:hover{
+background-color: var(--background-hover);
+color: var(--background-text);
+}
+
+#menu a:active, #menu .btn:active, #menu .menu-icon:active{
+background-color: var(--background-active);
+color: var(--background-text);
+}
+
+#menu .dropdown:hover .dropdown-content, #menu .dropdown-content.show{
+display: block;
+}
+
+#menu button:disabled,
+#menu button[disabled]{
+  color: var(--background-active);
+  pointer-events: none;
+}

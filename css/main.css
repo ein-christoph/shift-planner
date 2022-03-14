@@ -1,0 +1,217 @@
+*{
+  font-family: sans-serif;
+}
+
+:root{
+  --primary: #01579b;
+  --primary-dark: #002f6c;
+  --primary-text: #FFFFFF;
+  --background: #ffffff;
+  --background-hover: #e7e7e7;
+  --background-active: #c7c7c7;
+  --background-text: #000000;
+  --notimplemented: #ffffff;
+}
+
+html, body{
+  margin: 0px;
+  padding: 0px;
+  background-color: var(--notimplemented);
+}
+
+.content *{
+  font-weight: normal;
+}
+
+.content p{
+  line-height: 30px;
+}
+
+.content.settings{
+  padding: 10px;
+}
+
+table{
+  border-collapse: collapse;
+}
+
+th, td{
+  height: 25px;
+  font-size: 14px;
+  line-height: 25px;
+  border: 1px solid black;
+}
+
+#monthtable .sa, #monthtable .sa input, #einststudtable .sa, #einststudtable .sa input{
+  background-color: #e4e4e4;
+}
+
+#monthtable .so, #monthtable .so input, #einststudtable .so, #einststudtable .so input{
+  background-color: #d3d3d3;
+}
+
+#monthtable .so td:first-child, #einststudtable .so td:first-child{
+    color: rgb(157, 0, 0);
+}
+
+th{
+    font-weight: bold;
+    font-size: 17px;
+}
+
+#monthtable th, #einststudtable th{
+  width: 100px;
+}
+
+#monthtable th.date, #einststudtable th.date{
+  width: 80px;
+}
+
+table input{
+    outline: none;
+    border: none;
+    line-height: 25px;
+    text-align: left;
+    width: calc(100% - 4px);
+}
+
+table button{
+  border: none;
+  outline: none;
+  width: 100%;
+  height: 30px;
+  cursor: pointer;
+  background-color: #ffffff;
+  color: #4f4f4f;
+}
+
+table button:hover{
+background-color: #dfdfdf;
+  color: #000000;
+}
+
+table button:active{
+  background-color: #c7c7c7;
+}
+
+table input:focus{
+  outline: 1px solid var(--primary);
+}
+
+#monthtable #personenauswahl{
+    position: absolute;
+    width:calc(100% - 1px);
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    background-color: #e7e7e7;
+    max-height: 300px;
+    overflow-y: auto;
+    opacity: 1;
+    transition: 0.8s;
+    left: 0px;
+    margin-left: -1px;
+    z-index: 10;
+    overflow-x: hidden;
+}
+
+#monthtable #personenauswahl div.focus, #monthtable #personenauswahl div:hover{
+  border: 1px dashed blue;
+  font-weight: bold;
+}
+
+#monthtable #personenauswahl.hide{
+    opacity: 0;
+}
+
+#monthtable #personenauswahl div{
+    padding-left: 10px;
+    text-align: left;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+}
+
+.emptyplaceholdr:placeholder-shown{
+  background-color: rgb(175, 175, 175);
+  text-align: center;
+}
+
+td input.nouse{
+  background-color: rgb(116, 116, 116)!important;
+}
+
+.berechnungen th{
+    width: 85px;
+    font-weight: bold;
+}
+.berechnungen th:first-child{
+    width: 150px;
+}
+.berechnungen td:first-child{
+  text-align: left;
+  }
+.berechnungen:not(:first-child){
+    margin-top: 30px;
+}
+
+#monthtable td{
+    position: relative;
+}
+
+.search1{
+  background-color: rgb(145, 210, 144)!important;
+}
+.search2{
+  background-color: rgb(255, 237, 81)!important;
+}
+
+#monthfiles .settingsbutton{
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#monthfiles .settingsbutton img{
+  width: 21px;
+  height: 20px;
+}
+
+.lable{
+  text-align: left;
+  padding: 8px 0px;
+  font-size: 15px;
+  color: gray;
+  color: var(--primary);
+}
+
+.lable.input{
+  display: inline-block;
+  width: 100px;
+}
+#perpagetabs{
+  display: none;
+  padding-left: 48px;
+}
+
+.Suchleiste{
+  margin: 15px 0px;
+}
+
+.Suchleiste input[type="text"]{
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px ;
+  margin-right: 30px;
+  border-bottom: 2px solid var(--primary);
+}
+
+#monthtable{
+  margin-bottom: 300px;
+}
+
+#d-berechnungen td, #d-berechnungen th{
+  width: 50px;
+}
+#d-berechnungen th:first-child{
+  width: 120px;
+}

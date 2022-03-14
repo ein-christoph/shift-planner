@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dienstplanprogramm</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/menu.css">
+    <link rel="stylesheet" href="css/tabs.css">
+    <link rel="stylesheet" href="css/windowing.css">
+</head>
+
+<body>
+    <div id="menu">
+        <div class="dropdown">
+            <button class="dropbtn">Datei
+            </button>
+            <div class="dropdown-content">
+                <button id="opendir" class="btn">Öffnen</button>
+                <button id="saveall" disabled class="btn">Speichern</button>
+                <button id="saveas" disabled class="btn">Speichern unter ...</button>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button class="dropbtn" onclick="openabout();">Über</button>
+        </div>
+        <div class="name" id="projectname"></div>
+    </div>
+    <div class="content">
+        <div class="tab" id="monthfiles">
+            <button class="filelinks">Keine gröffnete Datei!</button>
+        </div>
+        <div class="tab" id="perpagetabs">
+            <button class="tablinks" onclick="openTab(event, 't-monthtable'); evaleinststud();"
+                id="defaultOpen">Dienstplan</button>
+            <button class="tablinks" onclick="openTab(event, 't-einstellungen')">Einstellungen</button>
+            <button class="tablinks" onclick="openTab(event, 't-berechnungen'); calculatestud();">Berechnung</button>
+        </div>
+        <div id="t-monthtable" class="tabcontent">
+            <div class="Suchleiste">Suche 1: <input type="text" class="search1" aclass="search1" id="search1" /> Suche
+                2: <input type="text" class="search2" aclass="search2" id="search2" /></div>
+            <div id="d-monthtable"></div>
+        </div>
+        <div id="t-einstellungen" class="tabcontent">
+            <div id="d-einststudtable"></div>
+        </div>
+        <div id="t-berechnungen" class="tabcontent">
+            <div id="d-berechnungen"></div>
+        </div>
+    </div>
+    <!--Beschreibung des Inhalts der Dateien in main.js-->
+
+    <script src="js/debug.js"></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/time.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/application.js"></script>
+    <script src="js/calculate.js"></script>
+    <script src="js/open.js"></script>
+    <script src="js/save.js"></script>
+    <script src="js/tab.js"></script>
+
+
+    <!--Projektsettings-->
+    <div class="windowcontext" id="projectsettingswindowcontext">
+        <div class="popupwindow">
+            <div class="titlebar">
+                <button id="saveprojectsettings" onclick="saveconfig();">Speichern</button>
+                <button id="closeprojectsett" class="close" onclick="closeprojectsettings();"></button>
+            </div>
+            <div class="content settings">
+                <div class="lable input">Projektname</div><input id="projectnameconfig" onkeydown="savebtnconfig.style.display='inline-block';" type="text" />
+                <div class="lable">Gruppen</div>
+                <table>
+                    <tbody id="grouptable">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Farbe</th>
+                            <th>🗑️</th>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><button class="addbutton" create="i,i,c,d" onclick="createtr('grouptable', this)"> + Hinzufügen</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="lable">Personen</div>
+                <table>
+                    <tbody id="persontable">
+                        <tr>
+                            <th>Name</th>
+                            <th>Gruppe</th>
+                            <th>🗑️</th>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><button class="addbutton" create="i,i,d" onclick="createtr('persontable', this)"> + Hinzufügen</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="lable">Monatsdateien</div>
+                <table>
+                    <tbody id="monthfiletable">
+                        <tr>
+                            <th>Name</th>
+                            <th>Datei</th>
+                            <th>🗑️</th>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><button class="addbutton" create="i,i,d" onclick="createtr('monthfiletable', this)"> + Hinzufügen</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="js/projectsettings.js"></script>
+
+      <!--Projektsettings-->
+      <div class="windowcontext" id="newpagewindowcontext">
+        <div class="popupwindow">
+            <div class="titlebar">
+                <button id="closenewpage" class="close" onclick="closenewpage();"></button>
+            </div>
+            <div class="content settings">
+                <h3>Neuen Monat erstellen</h3>
+                <p><div class="lable input">Monatsname</div><input id="newmonthname" type="text" /></p>
+                <p><div class="lable input">Erster Tag</div><input id="startdatte" type="date" /></p>
+                <p><div class="lable input">Vorheriger Monat</div><select id="prevmonth"></select></p>
+                <p><div class="lable input">Vorlage</div><select id="monthpreset"></select></p>
+                <p><button id="createnewpage" onclick="createnewpage()">Erstellen</button></p>
+            </div>
+        </div>
+    </div>
+    <script src="js/createnewpage.js"></script>
+
+    <!--About-->
+    <div class="windowcontext" id="abputpagecontext">
+        <div class="popupwindow">
+            <div class="titlebar">
+                <button id="closeabout" class="close" onclick="document.getElementById('abputpagecontext').style.display = 'none';"></button>
+            </div>
+            <div class="content about">
+                <h3>Dienstschichtplaner</h3>
+                <p><div class="lable input">Entwickler</div>Christoph Baitis</p>
+                <p><div class="lable input">Web</div><a href="https://c.baitis1.de" target="_blank">https://c.baitis1.de</a></p>
+                <p><div class="lable input">GitHub</div><a href="https://github.com/ein-christoph/shift-planner" target="_blank">https://github.com/ein-christoph/shift-planner</a></p>
+                <p><div class="lable input">Version</div><div style="display: inline-block" id="version"></div></p>
+                <p><div class="lable input">Aktualisierung</div><div  id="update"><button id="createnewpage" onclick="checkupdate()">Auf Update prüfen</button></div></p>
+            </div>
+        </div>
+    </div>
+    <!--About-->
+    <div class="windowcontext" id="featurecontext">
+        <div class="popupwindow">
+            <div class="titlebar">
+            </div>
+            <div class="content feature">
+                <h3>Ihr Browser wird nicht unterstützt!</h3>
+                <p>Dieses Programm nutzt spezielle Browser-Funktionen, die in Ihrem Browser leider nicht zur Verfügung stehen.</p>
+                <p><pre>Window.showDirectoryPicker() is not available.</pre></p>
+                <p>Daher werden Sie keine Dateien öffnen können.</p>
+                <p>Unterstützt werden alle Chromium-Basierten Browser (Chrome, Opera, Edge, ...) ab Chrome-Stand 86.</p>
+                <p>Siehe auch <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker#browser_compatibility">https://developer.mozilla.org/en-US/docs/Web/API/Window/showDirectoryPicker#browser_compatibility</a></p>
+            </div>
+        </div>
+    </div>
+    <script src="js/about.js"></script>
+</body>
+
+</html>
