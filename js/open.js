@@ -8,35 +8,32 @@ butDir.addEventListener('click', async () => {
 
     issaved = true;
 
-    const dirHandle = await window.showDirectoryPicker();
-    DirectoryHandle = dirHandle;
-    const promises = [];
-    for await (const entry of dirHandle.values()) {
-        if (entry.kind !== 'file') {
-            break;
-        }
-        promises.push(entry.getFile().then((file) => { return file; }));
-    }
-    files = await Promise.all(promises);
+    [project_file] = await window.showOpenFilePicker();
+    file = await project_file.getFile();
+    const contents = await file.text();
+    text = JSON.parse(contents);
+    console.log(text);
+
+    //HOTFIX: Ein Datei für einfacheres Teilen
+    //FIXME: Das muss überarbeitet werden (Datei-Struktur überarbeiten)
+
     let i = 0;
-    for (const file of files) {
-        console.log("Datei: " + file.name);
-        let text = await file.text();
-        text = JSON.parse(text);
-        console.log(text);
-        if (file.name == "config.json") {
-            config = text;
-            console.log(config);
-            configfile = file;
-        }
-        else {
-            console.log(file);
-            monthdata.push(text);
-            monthfiles.push(file);
+
+    for(key in text){
+        console.log(key)
+        if(key == "config.json")
+            config = text[key];
+        else{
+            monthdata.push(text[key]);
+            fake_fileobject = {
+                name: key
+            }
+            monthfiles.push(fake_fileobject);
             currentfileindex = i;
-            i++;
+            i++; 
         }
     }
+    console.log("=====");
     reinitapplication();
     
     butsaveall.disabled = false;

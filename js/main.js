@@ -1,7 +1,6 @@
 //Dateien
-let configfile = null; //Konfigdatei
+let project_file = null; //Konfigdatei
 let currentfileindex = null; //Aktuelledatei
-let DirectoryHandle = null;
 
 let personendiv = null;
 

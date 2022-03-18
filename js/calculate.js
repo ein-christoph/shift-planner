@@ -14,6 +14,10 @@ function calculatestud(fileindex = currentfileindex, buildtable = true) {
     studname.push("WE");
     let weposition = stud.push(0) - 1;
 
+    //Gesammtstunden-Tabelle
+    let overview_name = ["Gruppe", "Dieser Monat", "Gesamt"];
+    let overview = {};
+
     for (const [key, value] of Object.entries(config.staff)) {
         if( !(value in studobjects)) studobjects[value] = {};
         studobjects[value][key] = [...stud]; 
@@ -28,7 +32,12 @@ function calculatestud(fileindex = currentfileindex, buildtable = true) {
             }, 
             {}
           );
+          overview[value[0]] = []
+          overview[value[0]][0] = 0;
+          overview[value[0]][1] = 0;
     }
+
+    console.log(JSON.stringify(overview));
 
     let table = document.getElementById("monthtable");
     for (let i = 0, row; row = table.rows[i]; i++) {
@@ -52,6 +61,7 @@ function calculatestud(fileindex = currentfileindex, buildtable = true) {
 
                 let ngestudwert = studobjects[wstudarray_index][inputs[i].value][0] + parseFloat(document.getElementById("s-" + inputs[i].id).value)
                 studobjects[wstudarray_index][inputs[i].value][0] = ngestudwert;
+                overview[config.groups[wstudarray_index][0]][0] += ngestudwert;
 
                 //Check geteilte Stelle
                 let geteilt = false;
@@ -69,11 +79,15 @@ function calculatestud(fileindex = currentfileindex, buildtable = true) {
 
     //Kopie der einfachen Tabelle bearbeiten
     //FIXME: Felder, die nicht mit im lookup sind markieren
-    let lookup = calculate_overall(fileindex, JSON.parse(JSON.stringify(studobjects)), studname);
+    let lookup = calculate_overall(fileindex, JSON.parse(JSON.stringify(studobjects)), studname, overview);
 
     if(buildtable){
         let div = document.getElementById("d-berechnungen");
         div.innerHTML = "";
+        headding = document.createElement("h3");
+        headding.innerHTML = "Übersicht";
+        div.appendChild(headding);
+        createstudtableber(overview, overview_name, div);
         for(let key in studobjects){
             let headding = document.createElement("h2");
             headding.innerHTML = config.groups[key][0];
@@ -101,7 +115,7 @@ function calculatestud(fileindex = currentfileindex, buildtable = true) {
     }
 }
 
-function calculate_overall(fileindex, studobjects, studname){
+function calculate_overall(fileindex, studobjects, studname, overview){
     //FIXME: könnte problematisch werden, wenn sich die Positionen über Monate ändern ist aber auch kein vorgesehener usecase bisher
     //Wenns igrnore ist sind wir am Anfang und damit können wirs ignorieren
 
@@ -165,6 +179,11 @@ function calculate_overall(fileindex, studobjects, studname){
                     }
                 }                        
             }
+
+            //overview addieren
+            console.log(overview[config.groups[position_index][0]]);
+            overview[config.groups[position_index][0]][1] += monthdata[fileindex]["overall"][position_index][name][0];
+
             //Für die Gesamtübersicht immer die referenz abziehen
             let reff = monthdata[fileindex]["overall"]["reff"][position_index];
             if(name in specials["multiperson"]){//Wenn geteilter dienst nur den Anteil der Referenz abziehen

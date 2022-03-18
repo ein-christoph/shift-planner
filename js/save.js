@@ -2,30 +2,29 @@
 
 butsaveall.addEventListener("click", saveall);
 
-async function writeFile(fileEntry, contents) {
+async function writeFile(fileHandle, contents) {
 
-    console.log("Schreibe in " + fileEntry.name);
+    console.log("Schreibe in " + fileHandle.name);
     console.log(contents);
 
-    const newFileHandle = await DirectoryHandle.getFileHandle(fileEntry.name, { create: true });
-    const writable = await newFileHandle.createWritable();
+    const wwritable = await fileHandle.createWritable();
     // Write the contents of the file to the stream.
-    await writable.write(contents);
+    await wwritable.write(contents);
     // Close the file and write the contents to disk.
-    await writable.close();
+    await wwritable.close();
 }
 
 function saveall() {
     try {
-        writeFile(configfile, JSON.stringify(config));
-        let i = 0;
-        monthfiles.forEach(file => {
-            console.log(i);
-            console.log(JSON.stringify(monthdata[i]));
-            console.log("=====");
-            writeFile(file, JSON.stringify(monthdata[i]));
-            i++;
-        });
+        let savestring = {}
+
+        savestring["config.json"] = config;
+
+        for(const[key, value] of Object.entries(monthdata)){
+            savestring[monthfiles[key].name] = value;
+        }
+
+        writeFile(project_file, JSON.stringify(savestring));
         issaved = true;
         settitle();
     } catch (error) {
@@ -37,8 +36,17 @@ function saveall() {
 butsaveas.addEventListener("click", save_as);
 
 async function save_as(){
-    const dirHandle = await window.showDirectoryPicker();
-    DirectoryHandle = dirHandle;
+    const options = {
+        types: [
+          {
+            description: 'JSON-Datei',
+            accept: {
+              'text/json': ['.json'],
+            },
+          },
+        ],
+      };
+    project_file = await window.showSaveFilePicker(options);
     saveall();
     reinitapplication();
 }
