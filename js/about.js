@@ -1,4 +1,4 @@
-let version = '0.0.1 alpha';
+let version = '0.0.2b alpha';
 
 function httpGet(theUrl){
     var xmlHttp = new XMLHttpRequest();
