@@ -193,20 +193,11 @@ function calculate_overall(fileindex, studobjects, studname, overview){
     }
 }
 
-//Farbskala
-//FIXME: Muss ein min-max skala werden
-function GreenYellowRed(value, max) {
-    value--;
-    var r, g, b;
-    if (value < max / 2) {
-        r = Math.floor(200 * (value / (max / 2)));
-        g = 255;
-    } else {
-        r = 255;
-        g = Math.floor(255 * (((max / 2) - value % (max / 2)) / (max / 2))) + 50;
-    }
-    b = 0;
-    return r + "," + g + "," + b;
+//Farbskala von 
+//https://stackoverflow.com/questions/17525215/calculate-color-values-from-green-to-red
+function percentageToHsl(percentage, hue0, hue1) {
+    var hue = (percentage * (hue1 - hue0)) + hue0;
+    return 'hsl(' + hue + ', 100%, 50%)';
 }
 
 function createstudtableber(studobject, studname, div, color = true, editable = false, position_index = null) {
@@ -243,10 +234,12 @@ function createstudtableber(studobject, studname, div, color = true, editable = 
                     studmin[column] = false;
                     for(let row_i in studobject){
                         if(studobject[row_i][column] > studmax[column]) studmax[column] = studobject[row_i][column];
-                        if(!studmin[column] || studobject[row_i][column] < studmin[column]) studmin[column] = studobject[row_i][column];
+                        if(studmin[column] === false|| studobject[row_i][column] < studmin[column]) studmin[column] = studobject[row_i][column];
                     }
                 }
-                td.style.backgroundColor = "rgb(" + GreenYellowRed(studobject[row_t][column], studmax[column]) + ")";
+                let perc = (studmax[column] - studmin[column] == 0) ? 0 : (studobject[row_t][column] - studmin[column]) / (studmax[column] - studmin[column]);
+                td.style.backgroundColor = percentageToHsl(perc, 120, 0);
+                td.setAttribute("title", perc);
             }
             if(editable){
                 td.setAttribute("contenteditable", "true");
