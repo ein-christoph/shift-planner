@@ -49,11 +49,11 @@ function createnewpage(){
 
     if(document.getElementById("monthpreset").value != "-1"){
         let presetmonth = monthdata[document.getElementById("monthpreset").value];
-        newmonthdata.positions = presetmonth.positions;
+        newmonthdata.positions = JSON.parse(JSON.stringify(presetmonth.positions)); // JSON stringify und parse um kopieren statt Referenz zu klonen
 
         //Referenzstunden übernehmen
         newmonthdata["overall"] = {};
-        newmonthdata["overall"]["reff"] = presetmonth.overall.reff;
+        newmonthdata["overall"]["reff"] = JSON.parse(JSON.stringify(presetmonth.overall.reff)); // JSON stringify und parse um kopieren statt Referenz zu klonen
 
         //Wocheneinstellung übernehmen
         //Referenz = erster Sonntag finden
@@ -62,7 +62,7 @@ function createnewpage(){
         for (const [date, value] of Object.entries(presetmonth.einststudtable)) {
             let daynr = (new Date(date)).getDay();
             if(!(daynr in reffstuds)){
-                reffstuds[daynr] = value;
+                reffstuds[daynr] = JSON.parse(JSON.stringify(value)); // JSON stringify und parse um kopieren statt Referenz zu klonen;
                 filled ++;
             }
             if(filled >= 7)
@@ -77,7 +77,7 @@ function createnewpage(){
         let i = datei.getDay();
         for (null; datei < nextmonth; datei.setDate(datei.getDate() + 1)) {
             if(i >= 7) i = 0;
-            newmonthdata["einststudtable"][datei.toISOString().split('T')[0]] = reffstuds[i];
+            newmonthdata["einststudtable"][datei.toISOString().split('T')[0]] = JSON.parse(JSON.stringify(reffstuds[i])); // JSON stringify und parse um kopieren statt Referenz zu klonen
             i++;
         }
     }
