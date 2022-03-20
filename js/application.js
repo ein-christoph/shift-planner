@@ -128,11 +128,6 @@ function searchtable(event) {
         }
     }
 }
-
-function opennewpage(event) {
-    console.log("Not implemented!");
-}
-
 //Bei Starttabelle kann man die Stunden editieren, um overall anzupassen
 //Die ID des tds folgt dabei dem Schema, sodass nichts neues mehr nachgeschlagen werden muss
 function updateoverall(event){

@@ -20,7 +20,6 @@ butDir.addEventListener('click', async () => {
     let i = 0;
 
     for(key in text){
-        console.log(key)
         if(key == "config.json")
             config = text[key];
         else{
@@ -33,7 +32,6 @@ butDir.addEventListener('click', async () => {
             i++; 
         }
     }
-    console.log("=====");
     reinitapplication();
     
     butsaveall.disabled = false;
@@ -58,7 +56,6 @@ function reinitapplication(){
         if(value == monthfiles[currentfileindex].name) button.classList.add("active");
         button.innerHTML = key;
         for(const [key2, value2] of Object.entries(monthfiles)){
-            console.log(value+ "|"+value2.name);
             if(value == value2.name){
                 button.setAttribute("file", key2);
                 break;

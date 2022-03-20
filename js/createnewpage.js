@@ -69,8 +69,6 @@ function createnewpage(){
                 break;
         }
 
-        console.log(reffstuds);
-
 
         //Durch jedes Datum durchgehen und Stunden übernehmen
         let nextmonth = new Date(js_date);

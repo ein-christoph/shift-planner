@@ -37,8 +37,6 @@ function calculatestud(fileindex = currentfileindex, buildtable = true) {
           overview[value[0]][1] = 0;
     }
 
-    console.log(JSON.stringify(overview));
-
     let table = document.getElementById("monthtable");
     for (let i = 0, row; row = table.rows[i]; i++) {
         if (i > 0) {
@@ -162,7 +160,6 @@ function calculate_overall(fileindex, studobjects, studname, overview){
         if(typeof(document.getElementById("reff"+fileindex+"i"+position_index)) != 'undefined' 
             && document.getElementById("reff"+fileindex+"i"+position_index) != null){
             monthdata[fileindex]["overall"]["reff"][position_index] = parseFloat(document.getElementById("reff"+fileindex+"i"+position_index).value);
-            
         }
         else if(!(position_index in monthdata[fileindex]["overall"]["reff"])){
             monthdata[fileindex]["overall"]["reff"][position_index] = 0; //Auf Null setzen, wenns keine Vorgabe giebt
@@ -181,7 +178,6 @@ function calculate_overall(fileindex, studobjects, studname, overview){
             }
 
             //overview addieren
-            console.log(overview[config.groups[position_index][0]]);
             overview[config.groups[position_index][0]][1] += monthdata[fileindex]["overall"][position_index][name][0];
 
             //Für die Gesamtübersicht immer die referenz abziehen
@@ -215,7 +211,6 @@ function GreenYellowRed(value, max) {
 
 function createstudtableber(studobject, studname, div, color = true, editable = false, position_index = null) {
 
-    console.log(studobject)
     let tbl = document.createElement("table");
     tbl.classList.add("berechnungen");
     let tbdy = document.createElement("tbody");
